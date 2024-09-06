@@ -97,7 +97,7 @@ namespace WinForms19.Models
                     .Replace("x4", "")
                     .Replace("y4", "");
                 string cleanedContent = new string(formated.
-                    Where(c => char.IsDigit(c) || char.IsWhiteSpace(c))
+                    Where(c => char.IsDigit(c) || char.IsWhiteSpace(c) || c == ',')
                     .ToArray());
                 string[] lines = cleanedContent
                     .Split(new[] { '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -111,18 +111,19 @@ namespace WinForms19.Models
                     string[] parts4 = lines[i + 4].Split(" ", StringSplitOptions.RemoveEmptyEntries);
                     result.Add(
                        new Rectangle(
-                           new Point(int.Parse(parts1[0]), (int.Parse(parts1[1])))
-                           , new Point(int.Parse(parts2[0]), (int.Parse(parts2[1])))
-                           , new Point(int.Parse(parts3[0]), (int.Parse(parts3[1])))
-                            , new Point(int.Parse(parts4[0]), (int.Parse(parts4[1])))
+                             new Point(double.Parse(parts1[0]), (double.Parse(parts1[1])))
+                           , new Point(double.Parse(parts2[0]), (double.Parse(parts2[1])))
+                           , new Point(double.Parse(parts3[0]), (double.Parse(parts3[1])))
+                           , new Point(double.Parse(parts4[0]), (double.Parse(parts4[1])))
                            , Color.Black
                         )
                        );
                 }
                 return result;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"Помилка читання{ex.Message}");
                 return null;
             }
 

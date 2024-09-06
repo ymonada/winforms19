@@ -24,7 +24,7 @@ namespace WinForms19
 
         private void FilesForm_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void TrianglesFileButtom_Click(object sender, EventArgs e)
@@ -47,12 +47,17 @@ namespace WinForms19
             string content = FileReaderWriter.ReadText(curentPath);
             FileTextBox.Text = content;
         }
-        
+
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
             var result = FileTextBox.Text;
             FileReaderWriter.WriteText(result, curentPath);
+        }
+
+        private void FileTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

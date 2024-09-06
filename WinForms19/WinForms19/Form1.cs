@@ -39,8 +39,9 @@ namespace WinForms19
 
         private void RectangleButton_Click(object sender, EventArgs e)
         {
-            RectangleForm.Rectangles = FileReaderWriter.RectangleRead(RectangleForm.rectanglepath);
+           
             HeaderLabel.Text = "Чотирикутники";
+            RectangleForm.Refresh();
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(RectangleForm);
             RectangleForm.Show();
@@ -98,33 +99,7 @@ namespace WinForms19
             }
             else return false;
         }
-        private bool IsCrossed(Point A, Point B, Point C, Point D)
-        {
-            double Ua, Ub, numerator_a, numerator_b, denominator;
-            denominator = (D.Y - C.Y) * (A.X - B.X) - (D.X - C.X) * (A.Y - B.Y);
-            if (denominator == 0)
-            {
-                if ((A.X * B.Y - B.X * A.Y) * (D.X - C.Y) - (C.X * D.Y - D.X * C.Y) * (B.X - A.X) == 0 &&
-                    (A.X * B.Y - B.X * A.Y) * (D.Y - C.Y) - (C.Y * D.Y - D.X * C.Y) * (B.Y - A.Y) == 0)
-                {
-                    return true;
-                }
-                else return false;
-            }
-            else
-            {
-                numerator_a = (D.X - B.X) * (D.Y - C.Y) - (D.X - C.X) * (D.Y - B.Y);
-                numerator_b = (A.X - B.X) * (D.Y - C.Y) - (D.X - B.X) * (A.Y - B.Y);
-                Ua = numerator_a / numerator_b;
-                Ub = numerator_b / numerator_a;
-                if (Ua >= 0 && Ua <= 1 &&
-                    Ub >= 0 && Ub <= 1)
-                {
-                    return true;
-                }
-                else return false;
-            }
-        }
+
 
         private void PanelDraw(object sender, PaintEventArgs e)
         {
@@ -155,13 +130,13 @@ namespace WinForms19
                     {
                         if (i != j)
                         {
-                            var A = TriangleForm.Triangles[j]._A;
-                            var B = TriangleForm.Triangles[j]._B;
-                            var C = TriangleForm.Triangles[j]._C;
-                            var AA = TriangleForm.Triangles[i]._A;
-                            var BB = TriangleForm.Triangles[i]._B;
-                            var CC = TriangleForm.Triangles[i]._C;
-                            if (DoSegmentsIntersect(A, B, AA, BB) ||
+                            var A = TriangleForm.Triangles[j]._A.ToPoint();
+                            var B = TriangleForm.Triangles[j]._B.ToPoint();
+                            var C = TriangleForm.Triangles[j]._C.ToPoint();
+                            var AA = TriangleForm.Triangles[i]._A.ToPoint();
+                            var BB = TriangleForm.Triangles[i]._B.ToPoint();
+                            var CC = TriangleForm.Triangles[i]._C.ToPoint();
+                            if ((DoSegmentsIntersect(A, B, AA, BB) ||
                                 DoSegmentsIntersect(A, B, AA, CC) ||
                                 DoSegmentsIntersect(A, B, CC, BB) ||
 
@@ -171,9 +146,9 @@ namespace WinForms19
 
                                 DoSegmentsIntersect(C, B, AA, BB) ||
                                 DoSegmentsIntersect(C, B, AA, CC) ||
-                                DoSegmentsIntersect(C, B, CC, BB) &&
-                                TriangleForm.Triangles[j]._Color != Color.Black &&
-                                TriangleForm.Triangles[i]._Color != Color.Black)
+                                DoSegmentsIntersect(C, B, CC, BB))&&
+                                TriangleForm.Triangles[i].IsNested&&
+                                TriangleForm.Triangles[j].IsNested)
                             {
                                 TriangleForm.Triangles[j]._Color = Color.FromArgb(131, 165, 152);
                                 TriangleForm.Triangles[i]._Color = Color.FromArgb(131, 165, 152);
@@ -190,10 +165,27 @@ namespace WinForms19
             MainPanel.Paint += new PaintEventHandler(PanelDraw);
             MainPanel.Refresh();
         }
-        public static bool DoSegmentsIntersect(Point A, Point B, Point C, Point D)
+
+        private static bool PositionRelativeToLine(Models.Point A, Models.Point B, Models.Point tC)
+        {
+            double crossProduct = (B.X - A.X) * (tC.Y - A.Y) - (B.Y - A.Y) * (tC.X - A.X);
+            return (crossProduct > 0);
+  
+        }
+        private static bool IsPointInsideRectangle(Models.Rectangle rec, Models.Point A)
+        {
+            bool isLeft1 = PositionRelativeToLine(rec._A, rec._B, A);
+            bool isLeft2 = PositionRelativeToLine(rec._B, rec._C, A);
+            bool isLeft3 = PositionRelativeToLine(rec._C, rec._D, A);
+            bool isLeft4 = PositionRelativeToLine(rec._D, rec._A, A);
+
+            // Проверяем, что точка A находится внутри прямоугольника
+            return (isLeft1 == isLeft2) && (isLeft2 == isLeft3) && (isLeft3 == isLeft4);
+        }
+        public static bool DoSegmentsIntersect(System.Drawing.Point A, System.Drawing.Point B, System.Drawing.Point C, System.Drawing.Point D)
         {
             // Вспомогательная функция для определения ориентации трёх точек
-            int Orientation(Point p, Point q, Point r)
+            int Orientation(System.Drawing.Point p, System.Drawing.Point q, System.Drawing.Point r)
             {
                 int val = (q.Y - p.Y) * (r.X - q.X) - (q.X - p.X) * (r.Y - q.Y);
 
@@ -202,7 +194,7 @@ namespace WinForms19
             }
 
             // Проверка пересечения двух отрезков
-            bool OnSegment(Point p, Point q, Point r)
+            bool OnSegment(System.Drawing.Point p, System.Drawing.Point q, System.Drawing.Point r)
             {
                 if (q.X <= Math.Max(p.X, r.X) && q.X >= Math.Min(p.X, r.X) &&
                     q.Y <= Math.Max(p.Y, r.Y) && q.Y >= Math.Min(p.Y, r.Y))
@@ -239,14 +231,22 @@ namespace WinForms19
         private void NestingButtom_Click(object sender, EventArgs e)
         {
             HeaderLabel.Text = "Вкладеність";
-            for (int i = 0; i < RectangleForm.Rectangles.Count; i++)
+            for (int i = 0; i < TriangleForm.Triangles.Count ; i++)
             {
-                for (int j = 0; j < TriangleForm.Triangles.Count; j++)
+                for (int j = 0; j < RectangleForm.Rectangles.Count; j++)
                 {
-                    if (IsNested(RectangleForm.Rectangles[i], TriangleForm.Triangles[j]))
+                    
+                    bool result = IsPointInsideRectangle(RectangleForm.Rectangles[j], TriangleForm.Triangles[i]._A) &&
+                        IsPointInsideRectangle(RectangleForm.Rectangles[j], TriangleForm.Triangles[i]._B) &&
+                        IsPointInsideRectangle(RectangleForm.Rectangles[j], TriangleForm.Triangles[i]._C);
+                    
+                   
+                    if (result)
+                        //TriangleForm.Triangles[j]._Color != Color.Black)
                     {
-                        TriangleForm.Triangles[j]._Color = Color.FromArgb(251, 73, 52);
-                    }
+                        TriangleForm.Triangles[i]._Color = Color.FromArgb(251, 73, 52);
+                        TriangleForm.Triangles[i].IsNested = true;
+                    } 
                 }
             }
 

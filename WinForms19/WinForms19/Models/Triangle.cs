@@ -14,6 +14,7 @@ namespace WinForms19.Models
         public Point _B { get; set; }
         public Point _C { get; set; }
         public Color _Color { get; set; }
+        public bool IsNested { get; set; }
         public Triangle() { }
         public Triangle(Point A, Point B, Point C, Color Color)
         {
@@ -24,9 +25,15 @@ namespace WinForms19.Models
         }
         public void Drawing(Graphics graphics, Pen pen)
         {
-            graphics.DrawLine(pen, _A, _B);
-            graphics.DrawLine(pen, _B, _C);
-            graphics.DrawLine(pen, _C, _A);
+            graphics.DrawLine(pen, 
+                new System.Drawing.Point((int)_A.X,(int)_A.Y), 
+                new System.Drawing.Point((int)_B.X, (int)_B.Y));
+            graphics.DrawLine(pen,
+                new System.Drawing.Point((int)_B.X, (int)_B.Y),
+                new System.Drawing.Point((int)_C.X, (int)_C.Y));
+            graphics.DrawLine(pen,
+                new System.Drawing.Point((int)_C.X, (int)_C.Y),
+                new System.Drawing.Point((int)_A.X, (int)_A.Y));
         }
         public override string ToString() => $"Triangle : \r\n\tA = {_A.X}; {_A.Y}\r\n" +
             $"\tB = {_B.X}; {_B.Y}\r\n" +

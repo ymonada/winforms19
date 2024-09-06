@@ -36,6 +36,10 @@
             textBoxY1 = new TextBox();
             textBoxX2 = new TextBox();
             ErrorLabel = new Label();
+            textBoxX3 = new TextBox();
+            textBoxY3 = new TextBox();
+            textBoxX4 = new TextBox();
+            textBoxY4 = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -60,14 +64,14 @@
             // 
             // textBoxX1
             // 
-            textBoxX1.Location = new Point(641, 125);
+            textBoxX1.Location = new Point(655, 96);
             textBoxX1.Name = "textBoxX1";
             textBoxX1.Size = new Size(100, 23);
             textBoxX1.TabIndex = 1;
             // 
             // textBoxY2
             // 
-            textBoxY2.Location = new Point(928, 366);
+            textBoxY2.Location = new Point(874, 125);
             textBoxY2.Name = "textBoxY2";
             textBoxY2.Size = new Size(100, 23);
             textBoxY2.TabIndex = 2;
@@ -86,14 +90,14 @@
             // 
             // textBoxY1
             // 
-            textBoxY1.Location = new Point(747, 125);
+            textBoxY1.Location = new Point(655, 125);
             textBoxY1.Name = "textBoxY1";
             textBoxY1.Size = new Size(100, 23);
             textBoxY1.TabIndex = 4;
             // 
             // textBoxX2
             // 
-            textBoxX2.Location = new Point(822, 366);
+            textBoxX2.Location = new Point(874, 96);
             textBoxX2.Name = "textBoxX2";
             textBoxX2.Size = new Size(100, 23);
             textBoxX2.TabIndex = 5;
@@ -106,6 +110,34 @@
             ErrorLabel.Size = new Size(0, 15);
             ErrorLabel.TabIndex = 6;
             // 
+            // textBoxX3
+            // 
+            textBoxX3.Location = new Point(655, 282);
+            textBoxX3.Name = "textBoxX3";
+            textBoxX3.Size = new Size(100, 23);
+            textBoxX3.TabIndex = 8;
+            // 
+            // textBoxY3
+            // 
+            textBoxY3.Location = new Point(655, 311);
+            textBoxY3.Name = "textBoxY3";
+            textBoxY3.Size = new Size(100, 23);
+            textBoxY3.TabIndex = 7;
+            // 
+            // textBoxX4
+            // 
+            textBoxX4.Location = new Point(874, 282);
+            textBoxX4.Name = "textBoxX4";
+            textBoxX4.Size = new Size(100, 23);
+            textBoxX4.TabIndex = 10;
+            // 
+            // textBoxY4
+            // 
+            textBoxY4.Location = new Point(874, 311);
+            textBoxY4.Name = "textBoxY4";
+            textBoxY4.Size = new Size(100, 23);
+            textBoxY4.TabIndex = 9;
+            // 
             // RectangleForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -113,6 +145,10 @@
             BackColor = Color.FromArgb(50, 48, 47);
             ClientSize = new Size(1064, 681);
             ControlBox = false;
+            Controls.Add(textBoxX4);
+            Controls.Add(textBoxY4);
+            Controls.Add(textBoxX3);
+            Controls.Add(textBoxY3);
             Controls.Add(ErrorLabel);
             Controls.Add(textBoxX2);
             Controls.Add(textBoxY1);
@@ -145,5 +181,9 @@
         private TextBox textBoxY1;
         private TextBox textBoxX2;
         private Label ErrorLabel;
+        private TextBox textBoxX3;
+        private TextBox textBoxY3;
+        private TextBox textBoxX4;
+        private TextBox textBoxY4;
     }
 }

@@ -90,6 +90,7 @@
             FileTextBox.ScrollBars = ScrollBars.Vertical;
             FileTextBox.Size = new Size(861, 679);
             FileTextBox.TabIndex = 3;
+            FileTextBox.TextChanged += FileTextBox_TextChanged;
             // 
             // SaveButton
             // 

@@ -140,7 +140,6 @@
             // 
             // HeaderLabel
             // 
-            HeaderLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             HeaderLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
             HeaderLabel.ForeColor = Color.FromArgb(251, 241, 199);
             HeaderLabel.Location = new Point(0, 0);

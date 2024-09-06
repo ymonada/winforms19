@@ -15,6 +15,7 @@ namespace WinForms19
     public partial class TriangleForm : Form
     {
         public List<Triangle> Triangles;
+        
         public static string trianglepath = "D:\\zhenya\\cw\\WinForms19\\WinForms19\\Files\\triangles.txt";
         public TriangleForm()
         {
@@ -34,6 +35,7 @@ namespace WinForms19
                 foreach (var figure in Triangles)
                 {
                     res += figure.ToStringLine();
+                   
                 }
                 TriangleListLabel.Text = res;
             }
@@ -57,9 +59,9 @@ namespace WinForms19
                 y2 = int.Parse(textY2);
                 y3 = int.Parse(textY3);
                 Triangles.Add(new Triangle(
-                new Point(x1, y1)
-                , new Point(x2, y2)
-                , new Point(x3, y3)
+                new Models.Point(x1, y1)
+                , new Models.Point(x2, y2)
+                , new Models.Point(x3, y3)
                 , Color.Black));
                 FileReaderWriter.Write(Triangles, trianglepath);
                 Refresh();
