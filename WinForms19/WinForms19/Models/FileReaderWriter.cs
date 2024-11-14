@@ -97,7 +97,7 @@ namespace WinForms19.Models
                     .Replace("x4", "")
                     .Replace("y4", "");
                 string cleanedContent = new string(formated.
-                    Where(c => char.IsDigit(c) || char.IsWhiteSpace(c) || c == ',')
+                    Where(c => char.IsDigit(c) || char.IsWhiteSpace(c) || c == '.')
                     .ToArray());
                 string[] lines = cleanedContent
                     .Split(new[] { '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);

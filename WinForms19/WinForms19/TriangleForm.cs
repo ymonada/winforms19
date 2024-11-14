@@ -16,7 +16,7 @@ namespace WinForms19
     {
         public List<Triangle> Triangles;
         
-        public static string trianglepath = "D:\\zhenya\\cw\\WinForms19\\WinForms19\\Files\\triangles.txt";
+        public static string trianglepath = "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\Files\\triangles.txt";
         public TriangleForm()
         {
             InitializeComponent();

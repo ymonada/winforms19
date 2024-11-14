@@ -18,7 +18,7 @@ namespace WinForms19
     public partial class RectangleForm : Form
     {
         public List<Models.Rectangle> Rectangles = new List<Models.Rectangle>();
-        public static string rectanglepath = "D:\\zhenya\\cw\\WinForms19\\WinForms19\\Files\\rectangles.txt";
+        public static string rectanglepath = "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\Files\\rectangles.txt";
 
         public RectangleForm()
         {

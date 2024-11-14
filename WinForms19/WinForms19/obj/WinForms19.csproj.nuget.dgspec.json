@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\zhenya\\cw\\WinForms19\\WinForms19\\WinForms19.csproj": {}
+    "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\WinForms19.csproj": {}
   },
   "projects": {
-    "D:\\zhenya\\cw\\WinForms19\\WinForms19\\WinForms19.csproj": {
+    "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\WinForms19.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\zhenya\\cw\\WinForms19\\WinForms19\\WinForms19.csproj",
+        "projectUniqueName": "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\WinForms19.csproj",
         "projectName": "WinForms19",
-        "projectPath": "D:\\zhenya\\cw\\WinForms19\\WinForms19\\WinForms19.csproj",
+        "projectPath": "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\WinForms19.csproj",
         "packagesPath": "C:\\Users\\sukhy\\.nuget\\packages\\",
-        "outputPath": "D:\\zhenya\\cw\\WinForms19\\WinForms19\\obj\\",
+        "outputPath": "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\sukhy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

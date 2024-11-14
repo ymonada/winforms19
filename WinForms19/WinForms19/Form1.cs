@@ -25,7 +25,7 @@ namespace WinForms19
             TopMost = true
         };
         List<Triangle> FinalTriangles = new List<Triangle>();
-        public static string finalpath = "D:\\zhenya\\cw\\WinForms19\\WinForms19\\Files\\finalTriangles.txt";
+        public static string finalpath = "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\Files\\finalTriangles.txt";
 
         public Form1()
         {
@@ -34,13 +34,13 @@ namespace WinForms19
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            HeaderLabel.Text = "Варіант №19";
+            HeaderLabel.Text = "Variant 19";
         }
 
         private void RectangleButton_Click(object sender, EventArgs e)
         {
-           
-            HeaderLabel.Text = "Чотирикутники";
+
+            HeaderLabel.Text = "Rectangle";
             RectangleForm.Refresh();
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(RectangleForm);
@@ -49,7 +49,7 @@ namespace WinForms19
 
         private void TriangleButtom_Click(object sender, EventArgs e)
         {
-            HeaderLabel.Text = "Трикутники";
+            HeaderLabel.Text = "Triangle";
             TriangleForm.Refresh();
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(TriangleForm);
@@ -57,16 +57,16 @@ namespace WinForms19
         }
         private void FilesButton_Click(object sender, EventArgs e)
         {
-            HeaderLabel.Text = "Файли";
+            HeaderLabel.Text = "Files";
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(FilesForm);
             FilesForm.Show();
         }
-       
+
 
         private void DrawingButtom_Click(object sender, EventArgs e)
         {
-            HeaderLabel.Text = "Малювання";
+            HeaderLabel.Text = "Draw";
             if (TriangleForm.Triangles != null && RectangleForm.Rectangles != null)
             {
                 foreach (var i in TriangleForm.Triangles)
@@ -121,7 +121,7 @@ namespace WinForms19
 
         private void CrossButtom_Click(object sender, EventArgs e)
         {
-            HeaderLabel.Text = "Перетин";
+            HeaderLabel.Text = "Cross";
             if (TriangleForm.Triangles != null && RectangleForm.Rectangles != null)
             {
                 for (int i = 0; i < TriangleForm.Triangles.Count; i++)
@@ -146,8 +146,8 @@ namespace WinForms19
 
                                 DoSegmentsIntersect(C, B, AA, BB) ||
                                 DoSegmentsIntersect(C, B, AA, CC) ||
-                                DoSegmentsIntersect(C, B, CC, BB))&&
-                                TriangleForm.Triangles[i].IsNested&&
+                                DoSegmentsIntersect(C, B, CC, BB)) &&
+                                TriangleForm.Triangles[i].IsNested &&
                                 TriangleForm.Triangles[j].IsNested)
                             {
                                 TriangleForm.Triangles[j]._Color = Color.FromArgb(131, 165, 152);
@@ -170,7 +170,7 @@ namespace WinForms19
         {
             double crossProduct = (B.X - A.X) * (tC.Y - A.Y) - (B.Y - A.Y) * (tC.X - A.X);
             return (crossProduct > 0);
-  
+
         }
         private static bool IsPointInsideRectangle(Models.Rectangle rec, Models.Point A)
         {
@@ -230,23 +230,23 @@ namespace WinForms19
         }
         private void NestingButtom_Click(object sender, EventArgs e)
         {
-            HeaderLabel.Text = "Вкладеність";
-            for (int i = 0; i < TriangleForm.Triangles.Count ; i++)
+            HeaderLabel.Text = "Include";
+            for (int i = 0; i < TriangleForm.Triangles.Count; i++)
             {
                 for (int j = 0; j < RectangleForm.Rectangles.Count; j++)
                 {
-                    
+
                     bool result = IsPointInsideRectangle(RectangleForm.Rectangles[j], TriangleForm.Triangles[i]._A) &&
                         IsPointInsideRectangle(RectangleForm.Rectangles[j], TriangleForm.Triangles[i]._B) &&
                         IsPointInsideRectangle(RectangleForm.Rectangles[j], TriangleForm.Triangles[i]._C);
-                    
-                   
+
+
                     if (result)
-                        //TriangleForm.Triangles[j]._Color != Color.Black)
+                    //TriangleForm.Triangles[j]._Color != Color.Black)
                     {
                         TriangleForm.Triangles[i]._Color = Color.FromArgb(251, 73, 52);
                         TriangleForm.Triangles[i].IsNested = true;
-                    } 
+                    }
                 }
             }
 
@@ -255,6 +255,9 @@ namespace WinForms19
             MainPanel.Refresh();
         }
 
-       
+        private void ButtonsPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
