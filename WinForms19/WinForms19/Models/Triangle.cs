@@ -10,6 +10,7 @@ namespace WinForms19.Models
 {
     public class Triangle : IFigure
     {
+        public static Color DefaultColor = Color.Black;
         public Point _A { get; set; }
         public Point _B { get; set; }
         public Point _C { get; set; }
@@ -25,15 +26,9 @@ namespace WinForms19.Models
         }
         public void Drawing(Graphics graphics, Pen pen)
         {
-            graphics.DrawLine(pen, 
-                new System.Drawing.Point((int)_A.X,(int)_A.Y), 
-                new System.Drawing.Point((int)_B.X, (int)_B.Y));
-            graphics.DrawLine(pen,
-                new System.Drawing.Point((int)_B.X, (int)_B.Y),
-                new System.Drawing.Point((int)_C.X, (int)_C.Y));
-            graphics.DrawLine(pen,
-                new System.Drawing.Point((int)_C.X, (int)_C.Y),
-                new System.Drawing.Point((int)_A.X, (int)_A.Y));
+            graphics.DrawLine(pen, (float)_A.X,(float)_A.Y, (float)_B.X, (float)_B.Y);
+            graphics.DrawLine(pen, (float)_B.X, (float)_B.Y, (float)_C.X, (float)_C.Y);
+            graphics.DrawLine(pen, (float)_C.X, (float)_C.Y, (float)_A.X, (float)_A.Y);           
         }
         public override string ToString() => $"Triangle : \r\n\tA = {_A.X}; {_A.Y}\r\n" +
             $"\tB = {_B.X}; {_B.Y}\r\n" +

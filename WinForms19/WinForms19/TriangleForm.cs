@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,31 +15,41 @@ namespace WinForms19
 {
     public partial class TriangleForm : Form
     {
-        public List<Triangle> Triangles;
+        public List<Triangle> Triangles = [];
         
-        public static string trianglepath = "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\Files\\triangles.txt";
+        public static string trianglepath = "Files\\triangles.txt";
         public TriangleForm()
         {
             InitializeComponent();
-
+            Paint += (s, e) =>
+            {
+                var g = e.Graphics;
+                var pen = new Pen(Color.DodgerBlue, 3);
+                g.DrawLine(pen, 800, 150, 950 ,370);
+                g.DrawLine(pen, 950, 370, 650, 370);
+                g.DrawLine(pen, 650, 370, 800, 150);
+            };
         }
         private void TriangleForm_Load(object sender, EventArgs e)
         {
-            Refresh();
+            if (Triangles.Count < 1)
+            {
+                AddFigure();
+            }
         }
-        public void Refresh()
+        private void TriangleList()
+        {
+            var res = string.Empty;
+            foreach (var figure in Triangles)
+            {
+                res += figure.ToStringLine();
+            }
+            TriangleListLabel.Text = res;
+        }
+        public void AddFigure()
         {
             Triangles = FileReaderWriter.TriangleRead(trianglepath);
-            if (Triangles != null)
-            {
-                var res = string.Empty;
-                foreach (var figure in Triangles)
-                {
-                    res += figure.ToStringLine();
-                   
-                }
-                TriangleListLabel.Text = res;
-            }
+            TriangleList();
         }
         private void AddTriangle_Click(object sender, EventArgs e)
         {
@@ -64,12 +75,12 @@ namespace WinForms19
                 , new Models.Point(x3, y3)
                 , Color.Black));
                 FileReaderWriter.Write(Triangles, trianglepath);
-                Refresh();
+                TriangleList();
             }
-            catch 
+            catch(Exception ex)
             {
                 ErrorLabel.ForeColor = Color.Red;
-                ErrorLabel.Text = "Error in data types";
+                ErrorLabel.Text = $"Error in data types {ex}";
             }
 
             textBoxX1.Text = string.Empty;

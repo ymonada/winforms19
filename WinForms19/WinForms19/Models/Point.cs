@@ -14,10 +14,6 @@ namespace WinForms19.Models
         {
             X= x; Y=y;
         }
-        public Point()
-        {
-            
-        }
         public System.Drawing.Point ToPoint() => new System.Drawing.Point((int)X, (int)Y);
 
 

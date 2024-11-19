@@ -55,7 +55,6 @@
             ButtonsPanel.Name = "ButtonsPanel";
             ButtonsPanel.Size = new Size(200, 681);
             ButtonsPanel.TabIndex = 0;
-            ButtonsPanel.Paint += ButtonsPanel_Paint;
             // 
             // FilesButton
             // 

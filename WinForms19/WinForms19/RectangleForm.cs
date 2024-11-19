@@ -18,19 +18,28 @@ namespace WinForms19
     public partial class RectangleForm : Form
     {
         public List<Models.Rectangle> Rectangles = new List<Models.Rectangle>();
-        public static string rectanglepath = "C:\\dotnet\\winforms19\\WinForms19\\WinForms19\\Files\\rectangles.txt";
+        public static string rectanglepath = "Files\\rectangles.txt";
 
         public RectangleForm()
         {
             InitializeComponent();
+            Paint += (s, e) =>
+            {
+                var g = e.Graphics;
+                var pen = new Pen(Color.DodgerBlue, 3);
+                g.DrawLine(pen, 650, 150, 950, 150);
+                g.DrawLine(pen, 950, 150, 950, 370);
+                g.DrawLine(pen, 950, 370, 650, 370);
+                g.DrawLine(pen, 650, 370, 650, 150);
+            };
         }
 
         private void RectangleForm_Load(object sender, EventArgs e)
         {
-            if (Rectangles != null)
-                Refresh();
+            if (Rectangles.Count < 1)
+                AddFigure();
         }
-        public void Refresh()
+        public void AddFigure()
         {
             Rectangles = FileReaderWriter.RectangleRead(rectanglepath);
             var res = string.Empty;
@@ -42,77 +51,67 @@ namespace WinForms19
         }
         private void AddRectangle_Click(object sender, EventArgs e)
         {
-            double x1, x2, y1, y2, x3,y3,x4,y4;
-            var textX1 = textBoxX1.Text;
-            var textX2 = textBoxX2.Text;
-            var textY1 = textBoxY1.Text;
-            var textY2 = textBoxY2.Text;
-            var textX3 = textBoxX3.Text;
-            var textX4 = textBoxX4.Text;
-            var textY3 = textBoxY3.Text;
-            var textY4 = textBoxY4.Text;
+            double x1, x2, y1, y2, x3, y3, x4, y4;           
+            var alpha = int.Parse(textBoxAlpha.Text);
             try
             {
                 ErrorLabel.Text = string.Empty;
-                x1 = double.Parse(textX1);
-                x2 = double.Parse(textX2);
-                y1 = double.Parse(textY1);
-                y2 = double.Parse(textY2);
-                x3 = double.Parse(textX3);
-                x4 = double.Parse(textX4);
-                y3 = double.Parse(textY3);
-                y4 = double.Parse(textY4);
-                if(IsRectangle(new Models.Point(x1, y1)
-                    , new Models.Point(x2, y2)
-                    , new Models.Point(x3, y3)
-                    , new Models.Point(x4, y4)))
-                {
-                    Rectangles.Add(new Models.Rectangle(new Models.Point(x1, y1)
-                    , new Models.Point(x2, y2)
-                    , new Models.Point(x3, y3)
-                    , new Models.Point(x4, y4)
-                    , Color.Black));
-                    FileReaderWriter.Write(Rectangles, rectanglepath);
-                    
-                    textBoxX1.Text = string.Empty;
-                    textBoxX2.Text = string.Empty;
-                    textBoxY1.Text = string.Empty;
-                    textBoxY2.Text = string.Empty;
-                    textBoxX3.Text = string.Empty;
-                    textBoxX4.Text = string.Empty;
-                    textBoxY3.Text = string.Empty;
-                    textBoxY4.Text = string.Empty;
-                    Refresh();
-                }
-                else
-                {
-                    ErrorLabel.ForeColor = Color.Red;
-                    ErrorLabel.Text = "Кути не прямокутні";
-                }
+
+                x2 = double.Parse(textBoxX2.Text);
+                y2 = double.Parse(textBoxY2.Text);
+                x4 = double.Parse(textBoxX4.Text);
+                y4 = double.Parse(textBoxY4.Text);
+                x1 = x2;
+                y1 = y4;
+                x3 = x4;
+                y3 = y2;
+               
+                    var rect = new Models.Rectangle(new Models.Point(x1, y1)
+                        , new Models.Point(x2, y2)
+                        , new Models.Point(x3, y3)
+                        , new Models.Point(x4, y4)
+                        , Color.Black);
+                    Rectangles.Add(Transform(rect, alpha));
+
+                FileReaderWriter.Write(Rectangles, rectanglepath);
+                textBoxX2.Text = string.Empty;
+                textBoxY2.Text = string.Empty;
+                textBoxX4.Text = string.Empty;
+                textBoxY4.Text = string.Empty;
+                AddFigure();
             }
-            catch
+            catch(Exception exep) 
             {
+                MessageBox.Show($"Error {exep}");
                 ErrorLabel.ForeColor = Color.Red;
                 ErrorLabel.Text = "Error in data types";
             }
         }
-        private static double DotProduct(Models.Point p1, Models.Point p2)
+       
+            public static Models.Rectangle Transform(Models.Rectangle rectangle, int angle)
+            {
+                double radians = angle * Math.PI / 180;
+                int centerX = (int)(rectangle._A.X + rectangle._B.Y + rectangle._C.X + rectangle._D.X) / 4;
+                int centerY = (int)(rectangle._A.Y + rectangle._B.Y + rectangle._C.Y + rectangle._D.Y) / 4;
+                var newRectangle = new Models.Rectangle(
+                    RotatePoint(rectangle._A)
+                    , RotatePoint(rectangle._B)
+                    , RotatePoint(rectangle._C)
+                    , RotatePoint(rectangle._D)
+                    , Models.Rectangle.DefaultColor);
+                Models.Point RotatePoint(Models.Point point)
+                {
+                    double x = point.X - centerX;
+                    double y = point.Y - centerY;
+                    int rotatedX = (int)(x * Math.Cos(radians) - y * Math.Sin(radians));
+                    int rotatedY = (int)(x * Math.Sin(radians) + y * Math.Cos(radians));
+                    return new Models.Point(rotatedX + centerX, rotatedY + centerY);
+                }
+                return newRectangle;
+            }
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            return p1.X * p2.X + p1.Y * p2.Y;
-        }
-        private static bool IsRectangle(Models.Point p1, Models.Point p2, Models.Point p3, Models.Point p4)
-        {
-            Models.Point v1 = new Models.Point(p2.X - p1.X, p2.Y - p1.Y);
-            Models.Point v2 = new Models.Point(p3.X - p2.X, p3.Y - p2.Y);
-            Models.Point v3 = new Models.Point(p4.X - p3.X, p4.Y - p3.Y);
-            Models.Point v4 = new Models.Point(p1.X - p4.X, p1.Y - p4.Y);
 
-            bool rightAngle1 = DotProduct(v1, v2) <= 2 && DotProduct(v1, v2) >= -2;
-            bool rightAngle2 = DotProduct(v2, v3) <= 2 && DotProduct(v1, v2) >= -2;
-            bool rightAngle3 = DotProduct(v3, v4) <= 2 && DotProduct(v1, v2) >= -2;
-            bool rightAngle4 = DotProduct(v4, v1) <= 2 && DotProduct(v1, v2) >= -2;
-
-            return rightAngle1 && rightAngle2 && rightAngle3 && rightAngle4;
         }
     }
 }

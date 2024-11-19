@@ -43,20 +43,26 @@
             // 
             // textBoxX1
             // 
-            textBoxX1.Location = new Point(731, 126);
+            textBoxX1.BackColor = Color.FromArgb(50, 48, 47);
+            textBoxX1.ForeColor = Color.FromArgb(235, 219, 178);
+            textBoxX1.Location = new Point(752, 126);
             textBoxX1.Name = "textBoxX1";
             textBoxX1.Size = new Size(100, 23);
             textBoxX1.TabIndex = 1;
             // 
             // textBoxY1
             // 
-            textBoxY1.Location = new Point(837, 126);
+            textBoxY1.BackColor = Color.FromArgb(50, 48, 47);
+            textBoxY1.ForeColor = Color.FromArgb(235, 219, 178);
+            textBoxY1.Location = new Point(752, 97);
             textBoxY1.Name = "textBoxY1";
             textBoxY1.Size = new Size(100, 23);
             textBoxY1.TabIndex = 2;
             // 
             // textBoxX2
             // 
+            textBoxX2.BackColor = Color.FromArgb(50, 48, 47);
+            textBoxX2.ForeColor = Color.FromArgb(235, 219, 178);
             textBoxX2.Location = new Point(597, 381);
             textBoxX2.Name = "textBoxX2";
             textBoxX2.Size = new Size(100, 23);
@@ -64,21 +70,27 @@
             // 
             // textBoxY2
             // 
-            textBoxY2.Location = new Point(703, 381);
+            textBoxY2.BackColor = Color.FromArgb(50, 48, 47);
+            textBoxY2.ForeColor = Color.FromArgb(235, 219, 178);
+            textBoxY2.Location = new Point(597, 410);
             textBoxY2.Name = "textBoxY2";
             textBoxY2.Size = new Size(100, 23);
             textBoxY2.TabIndex = 4;
             // 
             // textBoxX3
             // 
-            textBoxX3.Location = new Point(846, 381);
+            textBoxX3.BackColor = Color.FromArgb(50, 48, 47);
+            textBoxX3.ForeColor = Color.FromArgb(235, 219, 178);
+            textBoxX3.Location = new Point(895, 410);
             textBoxX3.Name = "textBoxX3";
             textBoxX3.Size = new Size(100, 23);
             textBoxX3.TabIndex = 5;
             // 
             // textBoxY3
             // 
-            textBoxY3.Location = new Point(952, 381);
+            textBoxY3.BackColor = Color.FromArgb(50, 48, 47);
+            textBoxY3.ForeColor = Color.FromArgb(235, 219, 178);
+            textBoxY3.Location = new Point(895, 381);
             textBoxY3.Name = "textBoxY3";
             textBoxY3.Size = new Size(100, 23);
             textBoxY3.TabIndex = 6;
@@ -88,7 +100,7 @@
             AddTriangle.BackColor = Color.FromArgb(40, 40, 40);
             AddTriangle.FlatAppearance.BorderSize = 0;
             AddTriangle.ForeColor = Color.FromArgb(235, 219, 178);
-            AddTriangle.Location = new Point(752, 460);
+            AddTriangle.Location = new Point(867, 624);
             AddTriangle.Name = "AddTriangle";
             AddTriangle.Size = new Size(185, 45);
             AddTriangle.TabIndex = 7;
